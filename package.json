@@ -28,6 +28,7 @@
     "react-native-inappbrowser-reborn": "^3.7.0",
     "react-native-paper": "^5.10.6",
     "react-native-reanimated": "^3.5.4",
+    "react-native-rename": "^3.2.13",
     "react-native-safe-area-context": "^4.7.2",
     "react-native-screens": "^3.25.0",
     "react-native-super-grid": "^5.0.0",
