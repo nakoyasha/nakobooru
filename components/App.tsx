@@ -1,47 +1,60 @@
 import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import {
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-  Switch,
-  Button,
-  Alert,
-  ActivityIndicator,
-  ScrollView,
-  SafeAreaView,
+  useColorScheme, Image, View,
 } from 'react-native';
 
 import {
-  Colors, Header,
+  Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import { ImagesList } from './ImagesList';
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { styles } from "../etc/Styles"
+
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+
+import { Appbar } from "react-native-paper"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+const tab = createMaterialBottomTabNavigator()
+var navigation;
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const scheme = useColorScheme()
+  const theme = (scheme == "dark" && DarkTheme || DefaultTheme)
 
   return (
-    // Status Bar 
-    <View>
-      <View style={backgroundStyle}>
+    <NavigationContainer
+      theme={theme}
+    >
+      <View style={Colors.light}>
         <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
+          translucent={true}
+          style="auto"
+          backgroundColor="rgba(0,0,0,0)"
         />
-
-        <View>
-
-          <ImagesList />
-        </View>
       </View>
 
+      <Appbar.Header>
+        <Appbar.Content title="Danbooru" />
+      </Appbar.Header>
 
-    </View>
 
+      <tab.Navigator
+        theme={theme}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={32} />
+          )
+        })}
+      >
+        <tab.Screen name="Home" component={ImagesList} />
+        <tab.Screen name="Favorites" component={ImagesList} />
+        <tab.Screen name="Settings" component={ImagesList} />
+      </tab.Navigator>
+
+    </NavigationContainer>
   )
 }
 
