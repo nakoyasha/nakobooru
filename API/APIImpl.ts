@@ -33,6 +33,6 @@ export type SearchResults = [ImageData?]
 export interface APIImpl {
     apiURL: string,
     getImage(imageId: number): Promise<ImageData>,
-    getPosts(page?: number): Promise<SearchResults>,
+    getPosts(page?: number, search?: string[]): Promise<SearchResults>,
     searchImage(tags: string[]): Promise<SearchResults>
 }
