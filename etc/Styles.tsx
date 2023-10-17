@@ -86,16 +86,21 @@ export const styles = StyleSheet.create({
         display: "flex",
         zIndex: 2,
         flexDirection: "row",
-        paddingTop: 15,
         paddingLeft: 5,
-        paddingBottom: 15,
+        paddingTop: 10,
         position: "absolute",
         width: "100%",
-        height: "10%",
-        backgroundColor: 'rgba(0,0,0,.2 )',
+        backgroundColor: 'rgba(0,0,0,.6 )',
         alignItems: "flex-start",
+        textAlign: "center",
+        color: "white"
     },
     imageDetails: {
+        flexGrow: 1,
+        backgroundColor: "white",
+        width: "100%",
+        height: "100%",
+        alignItems: "center"
     },
     pager: {
         backgroundColor: "rgba(0,0,0, 0)",
@@ -113,7 +118,7 @@ export const styles = StyleSheet.create({
     },
     pageButton: {
         aspectRatio: 1,
-        backgroundColor: "rgba(255, 255, 255, .1)",
+        backgroundColor: "rgba(210, 210, 210, .1)",
         borderRadius: 5,
         paddingLeft: 5,
         alignItems: "center",
@@ -123,25 +128,26 @@ export const styles = StyleSheet.create({
     },
 
     tagButton: {
-        backgroundColor: "rgba(255, 255, 255, .1)",
         borderRadius: 5,
         alignItems: "center",
-        textAlign: "left",
         justifyContent: "center",
-        margin: 5,
+        margin: 10,
         paddingLeft: 5,
         paddingRight: 5,
         paddingTop: 5,
         paddingBottom: 5,
     },
+    tagButtonText: {
+        color: "white"
+    },
 
     tagListScroller: {
     },
     tagList: {
-        flex: 1,
+        backgroundColor: "white",
         width: "100%",
         height: "100%",
-        gap: 5,
+        gap: 10,
 
     },
 
@@ -152,13 +158,14 @@ export const styles = StyleSheet.create({
         alignItems: "flex-start"
     },
     imageDetailsHeader: {
+        color: "white",
         fontFamily: "Roboto",
         fontWeight: "900",
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
         textShadowOffset: { width: -1, height: 1 },
         textShadowRadius: 10,
         fontSize: 21,
-        paddingTop: 19,
+        paddingTop: 18,
         paddingLeft: 5,
         paddingRight: 15,
         paddingBottom: 10,
@@ -171,6 +178,13 @@ export const styles = StyleSheet.create({
     },
     center: {
         textAlign: "center",
+    },
+    fab: {
+        zIndex: 5,
+        position: 'absolute',
+        margin: 16,
+        right: 10,
+        bottom: 10,
     },
     icon: {
         aspectRatio: 1,
