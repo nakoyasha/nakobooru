@@ -79,9 +79,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.daboorunative"
+    namespace "com.nakoyasha.nakobooru"
     defaultConfig {
-        applicationId "com.daboorunative"
+        applicationId "com.nakoyasha.nakobooru"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

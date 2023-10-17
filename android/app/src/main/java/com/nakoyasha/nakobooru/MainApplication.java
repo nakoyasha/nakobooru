@@ -1,4 +1,4 @@
-package com.daboorunative;
+package com.nakoyasha.nakobooru;
 import android.content.res.Configuration;
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;
