@@ -4,6 +4,12 @@
 
 > :warning: **jank ahead!** this is a learning project and is thus messy and janky.
 
+
+# todo:
+- [ ] favourites
+- [ ] pools
+- [ ] settings (and multi-api support)
+
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
