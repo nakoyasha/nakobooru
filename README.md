@@ -2,6 +2,8 @@
 <h3 align="center">yea idk what to put here</h3>
 
 
+> :warning: **jank ahead!** this is a learning project and is thus messy and janky.
+
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
