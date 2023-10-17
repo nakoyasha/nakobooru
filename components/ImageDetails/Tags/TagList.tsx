@@ -1,6 +1,7 @@
 import { View, FlatList } from "react-native"
 import { styles } from "../../../etc/Styles"
 import { Tag } from "./Tag"
+import { Divider } from "react-native-paper"
 
 export function TagList(Props: {
     tags: string[],
@@ -20,7 +21,11 @@ export function TagList(Props: {
                 horizontal={Props.horizontal}
                 // contentContainerStyle={[styles.tagList]}
                 renderItem={({ item }) => (
-                    <Tag tag={item} />
+                    <View>
+                        <Tag tag={item} />
+                        <Divider />
+                    </View>
+
                 )}
 
             >

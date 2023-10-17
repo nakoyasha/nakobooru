@@ -1,9 +1,8 @@
-import { RefreshControl, Text, View, Image, Pressable, Alert, ActivityIndicator } from "react-native";
+import { Text, View, Image, Pressable, ActivityIndicator } from "react-native";
 import { styles } from "../etc/Styles";
 import { useState } from "react";
 import { ImageDetails } from "./ImageDetails/ImageDetails";
 import { ImageData } from "../API/APIImpl";
-
 
 export type APIImage = {
     Source: string,

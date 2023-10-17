@@ -1,10 +1,13 @@
-import { ScrollView, StatusBar, Text, View, Modal, Image } from "react-native"
+import { Pressable, View, Text, Modal, Image } from "react-native"
+import { StatusBar } from 'expo-status-bar';
 import { ImageData } from "../../API/APIImpl";
 import { styles } from "../../etc/Styles";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import { Topbar } from "./Topbar";
+import { Topbar } from "./Topbar/Topbar";
 import { TagList } from "./Tags/TagList";
+import { Snackbar, FAB } from "react-native-paper"
+import { useState } from "react";
 
+import ImageView from "react-native-image-viewing"
 
 export function ImageDetails(Props: any) {
     const ImageData: ImageData = Props.ImageData
@@ -21,6 +24,13 @@ export function ImageDetails(Props: any) {
 
     const tagsString = artistTagsString + " " + copyrightTagsString + " " + characterTagsString + " " + generalTagsString + " " + metaTagsString
 
+    const [isImageViewOpen, setImageViewOpen] = useState(false)
+    const [isSuccessSnackVisible, setSuccessSnackVisible] = useState(false)
+    const [isFailureSnackVisible, setFailureSnackVisible] = useState(false)
+
+    const onDismissSuccessSnack = () => setSuccessSnackVisible(false);
+    const onDismissFailureSnack = () => setFailureSnackVisible(false);
+
     // const generalTags = generalTagsString.split(" ")
     // const copyrightTags = copyrightTagsString.split(" ")
     // var characterTags = characterTagsString.split(" ")
@@ -34,42 +44,65 @@ export function ImageDetails(Props: any) {
 
     tags.forEach((tag, index) => {
         if (tag == "") {
-            console.log("Removed tag because it was empty")
             tags.splice(index, 1)
         }
     });
 
-    // // FIXME: hacky way to avoid rendering emtpy tags
-
-    // if (characterTags.length >= 1) {
-    //     if (characterTags[0] == "") {
-    //         characterTags = []
-    //     }
-    // }
-
     return (
-        <View style={[styles.centerDiv]}>
+        <View style={[styles.centerDiv, styles.imageDetails]} >
+            <ImageView
+                images={[{ uri: ImageData.large_file_url }]}
+                imageIndex={0}
+                visible={isImageViewOpen}
+                presentationStyle="overFullScreen"
+                onRequestClose={() => setImageViewOpen(false)}
+            />
+
             <Modal transparent={true} statusBarTranslucent={true} onDismiss={onDismiss} onRequestClose={onDismiss} animationType="slide" visible={IsModalOpen} >
-                <View style={{ backgroundColor: Colors.darker, width: "100%", height: "100%", alignItems: "center" }}>
-                    <StatusBar
-                        translucent={true}
-                        backgroundColor="rgba(0,0,0,0)"
-                    />
+                <Topbar onBack={onDismiss} imageData={ImageData} />
 
-                    <Topbar />
-                    <Image style={[[styles.imageDetails], { aspectRatio: imageAspectRatio, width: "100%", height: undefined }]} source=
-                        {
-                            { uri: ImageData.large_file_url }
-                        }
-                    />
-
+                <Snackbar
+                    visible={isSuccessSnackVisible}
+                    onDismiss={onDismissSuccessSnack}
+                    action={{
+                        label: 'Close',
+                        onPress: () => {
+                            onDismissSuccessSnack()
+                        },
+                    }}>
+                    Successfully downloaded image!
+                </Snackbar>
+                <Snackbar
+                    visible={isFailureSnackVisible}
+                    onDismiss={onDismissFailureSnack}
+                    action={{
+                        label: 'Close',
+                        onPress: () => {
+                            onDismissFailureSnack()
+                        },
+                    }}>
+                    Failed to download image (API/Network Error?)
+                </Snackbar>
+                <View style={[styles.imageDetails]}>
+                    <StatusBar style="auto" hidden={Props.IsModalOpen} />
+                    <Pressable style={[[styles.imageDetails], { aspectRatio: imageAspectRatio, width: "100%", height: undefined }]} onPress={() => {
+                        setImageViewOpen(true)
+                    }} >
+                        <Image style={[[styles.imageDetails], { aspectRatio: imageAspectRatio, width: "100%", height: undefined }]} source=
+                            {
+                                { uri: ImageData.large_file_url }
+                            }
+                        />
+                    </Pressable>
                     <Text style={[styles.tagListHeader]}>Tags</Text>
-
+                    <FAB
+                        icon="plus"
+                        style={styles.fab}
+                        onPress={() => console.log('Pressed')}
+                    />
                     <TagList tags={tags} columns={1} horizontal={false} />
-
-
                 </View>
             </Modal>
-        </View>
+        </View >
     )
 }

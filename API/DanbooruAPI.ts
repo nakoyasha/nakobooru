@@ -1,8 +1,12 @@
 import axios from "axios";
 import { APIImpl, ImageData, SearchResults } from "./APIImpl";
 
+const REGULAR_API = "https://danbooru.donmai.us/"
+const TEST_API = "https://testbooru.donmai.us"
+
 export class DanbooruAPI implements APIImpl {
-    apiURL = "https://danbooru.donmai.us/"
+    apiURL = REGULAR_API
+    postsEndpoint = "/posts.json"
     async getImage(imageId: number): Promise<ImageData> {
         const { data, status } = await axios.get<ImageData>(
             `${this.apiURL}/posts/${imageId}.json`,
@@ -20,13 +24,24 @@ export class DanbooruAPI implements APIImpl {
         }
     }
 
-    async getPosts(page?: number): Promise<SearchResults> {
+    async getPosts(page?: number, search?: string[]): Promise<SearchResults> {
         if (page == null) {
             page = 1
         }
 
+        if (search == null) {
+            search = []
+        }
+
+        const tags = search.join("+")
+        var url = `${this.apiURL}${this.postsEndpoint}?tags=${tags}&page=${page}`
+
+        url = url.replaceAll(" ", "_")
+        url = url.replaceAll(",", "")
+        console.log(url)
+
         const { data, status } = await axios.get<SearchResults>(
-            `${this.apiURL}/posts.json?page=${page}`,
+            url,
             {
                 headers: {
                     Accept: 'application/json',
